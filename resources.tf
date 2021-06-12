@@ -67,7 +67,7 @@ resource "aws_instance" "app-instance" {
   vpc_security_group_ids = [aws_security_group.app-securitygroup.id]
 
   # the public SSH key
-  key_name = "ec2-tuto-udemy"
+  key_name = aws_key_pair.mykeypair.key_name
   tags = {
     Name = "instanceWcustomAMI"
   }
