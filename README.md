@@ -32,3 +32,32 @@ What this is doing:
 
 To save the terraform state remotely, run terraform init and apply. After the bucket is created, used the file backend.tf
 and correct the bucket name. That bucket will then be used as a place to store the state of terraform the next time we use it.
+
+Build a custom AMI from a public source AMI, add a node Js app in it.
+
+How to use this?
+
+1- Terraform apply of this repository.
+
+2- Update backend.tf with the actual name of the bucket.
+
+3- terraform init to send the tf state.
+
+4- Use the ip given by the output of the TERRAFORM APPLY in step 1. Aim for port 8080. This steps leads you to Jenkins.
+
+5- On Jenkins, add a new account and set everything up
+
+6-a\* Create a 1st job. Git URL: https://github.com/johnny550/packer-demo
+
+b\* Script of job: ./jenkins-terraform.sh
+
+7- Execute the job. It builds the AMI from the given source and adds the Node JS app
+
+8-a\* Create a 2nd job. Git URL: https://github.com/johnny550/Jenkins_x_Packer
+
+b\* Script of job: ./scripts/jenkins-run-terraform.sh
+
+9- Execute the job. It uses the remote state of terraform to know it won't need to recreate existing resources. It sets INSTANCE_COUNT to 1 and will
+start a new instance with our custom AMI created in step 7.
+
+10- Take the IP of the app instance (you can find it iin the output of the 2nd job_view Jenkins cuild console output). Aim for port 80. See "HELLO WORLD".
