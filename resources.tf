@@ -34,6 +34,9 @@ resource "aws_instance" "jenkins-instance" {
 
   # iam instance profile
   iam_instance_profile = aws_iam_instance_profile.jenkins-profile.name
+  tags = {
+    Name = "jenkinsXpacker-instance"
+  }
 }
 
 resource "aws_ebs_volume" "jenkins-data" {
@@ -64,6 +67,9 @@ resource "aws_instance" "app-instance" {
   vpc_security_group_ids = [aws_security_group.app-securitygroup.id]
 
   # the public SSH key
-  key_name = aws_key_pair.mykeypair.key_name
+  key_name = "ec2-tuto-udemy"
+  tags = {
+    Name = "instanceWcustomAMI"
+  }
 }
 
